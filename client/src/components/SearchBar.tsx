@@ -3,6 +3,7 @@ import { useState, useEffect, useRef } from "react"
 export default function SearchBar() {
   const [query, setQuery] = useState("")
   const [results, setResults] = useState<any[]>([])
+  const [isFocused, setIsFocused] = useState(false)
 
   useEffect(() => {
     console.log(query);
@@ -34,6 +35,8 @@ export default function SearchBar() {
       <input
         value={query}
         onChange={(e) => setQuery(e.target.value)}
+        onFocus={() => setIsFocused(true)}
+        onBlur={() => setTimeout(() => setIsFocused(false), 150)}
         placeholder="Search a GitHub repository..."
         className="
           w-full px-5 py-3
@@ -47,9 +50,9 @@ export default function SearchBar() {
       />
 
       {/* dropdown */}
-      {results.length > 0 && (
+      {isFocused && results.length > 0 && (
         <div className="
-          absolute top-full mt-2 w-full
+          z-1 absolute top-full mt-2 w-full
           bg-black/80 backdrop-blur-xl
           border border-white/10
           rounded-xl
