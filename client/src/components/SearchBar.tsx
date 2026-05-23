@@ -1,30 +1,39 @@
-import { useState } from "react"
+import { useState, useEffect, useRef } from "react"
 
 export default function SearchBar() {
   const [query, setQuery] = useState("")
   const [results, setResults] = useState<any[]>([])
 
-  const searchRepos = async (value: string) => {
-    setQuery(value)
-
-    if (value.length < 2) {
+  useEffect(() => {
+    console.log(query);
+    if (query.length < 2) {
       setResults([])
       return
     }
 
-    const res = await fetch(
-      `https://api.github.com/search/repositories?q=${value}`
-    )
+    const timeout = setTimeout(() => { runSearch(query)}, 100);
+    return () => clearTimeout(timeout);
+  }, [query]);
 
-    const data = await res.json()
-    setResults(data.items?.slice(0, 5) || [])
+  async function runSearch(value: string) {
+    const res = await fetch(`http://localhost:8080/api/repos/search?q=${value}`)
+    if (!res.ok) {
+      console.warn("Github API error:", res.status);
+      setResults([]);
+      return;
+    }
+    console.log(res);
+    const data = await res.json();
+    const items = data.items || [];
+
+    setResults(items);
   }
 
   return (
     <div className="relative w-full">
       <input
         value={query}
-        onChange={(e) => searchRepos(e.target.value)}
+        onChange={(e) => setQuery(e.target.value)}
         placeholder="Search a GitHub repository..."
         className="
           w-full px-5 py-3
