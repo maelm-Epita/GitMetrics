@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react"
+import { Link } from 'react-router-dom';
 
 export default function SearchBar() {
   const [query, setQuery] = useState("")
@@ -23,8 +24,9 @@ export default function SearchBar() {
       setResults([]);
       return;
     }
-    console.log(res);
     const data = await res.json();
+    console.log(data);
+
     const items = data.items || [];
 
     setResults(items);
@@ -59,17 +61,20 @@ export default function SearchBar() {
           overflow-hidden
         ">
           {results.map((repo) => (
-            <div
-              key={repo.id}
-              className="px-4 py-3 hover:bg-white/10 cursor-pointer"
-            >
-              <p className="text-white text-sm font-medium">
-                {repo.full_name}
-              </p>
-              <p className="text-white/40 text-xs">
-                ⭐ {repo.stargazers_count}
-              </p>
-            </div>
+            <Link 
+              to={`/${repo.full_name}`}
+              key={repo.id}>
+              <div
+                className="px-4 py-3 hover:bg-white/10 cursor-pointer"
+              >
+                <p className="text-white text-sm font-medium">
+                  {repo.full_name}
+                </p>
+                <p className="text-white/40 text-xs">
+                  ⭐ {repo.stargazers_count}
+                </p>
+              </div>
+            </Link>
           ))}
         </div>
       )}

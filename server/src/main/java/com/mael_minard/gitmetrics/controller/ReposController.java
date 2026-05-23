@@ -1,10 +1,9 @@
 package com.mael_minard.gitmetrics.controller;
 
+import com.mael_minard.gitmetrics.dto.ReposSearchResponse;
+import com.mael_minard.gitmetrics.service.ReposService;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
@@ -12,24 +11,29 @@ import reactor.core.publisher.Mono;
 @RequestMapping("/api/repos")
 public class ReposController {
 
-    private final WebClient githubWebClient;
+    private final ReposService reposService;
 
-    public ReposController(WebClient githubWebClient) {
-        this.githubWebClient = githubWebClient;
+    public ReposController(
+            ReposService reposService
+    ) {
+        this.reposService = reposService;
     }
 
-    @Cacheable(value = "repoSearch", key = "#q")
     @GetMapping("/search")
-    public Mono<String> searchRepos(@RequestParam String q) {
-
-        System.out.println("Hitting Github API");
+    public Mono<ReposSearchResponse> searchRepos(@RequestParam String q) {
+        return reposService.searchRepos(q);
+    }
+    /*
+    @Cacheable("repoMetrics")
+    @GetMapping("/{owner}/{repo}")
+    public Mono<String> getRepoMetrics(@PathVariable String owner, @PathVariable String repo) {
+        System.out.println("hit endpoint");
         return githubWebClient.get()
                 .uri(uriBuilder -> uriBuilder
-                        .path("/search/repositories")
-                        .queryParam("q", q)
-                        .queryParam("per_page", 5)
+                        .path("/repos/" + owner + "/" + repo)
                         .build())
                 .retrieve()
                 .bodyToMono(String.class);
     }
+     */
 }
