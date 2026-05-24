@@ -24,6 +24,7 @@
 ## Starting the Front End (Client)
 - Navigate to `client/`
 - Rename the .env.example file to .env
+- Run `npm install`
 - Run `npm run dev`
 
 The client is reachable on `http://localhost:5173` by default.
