@@ -90,7 +90,7 @@ public class RepoMetricsConverter {
         double S =
                 10 * stargazers
                         + 100 * forks
-                        + 30 * Math.sqrt(watchers);
+                        +  * Math.sqrt(watchers);
 
         double a = 0.0065;
         double b = 0.65;

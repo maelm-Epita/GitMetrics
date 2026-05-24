@@ -45,9 +45,9 @@ function HomePage() {
                     ">
         <GithubLoginButton />
         </div>
-        <p className="text-sm text-gray-600">
+          <p className="text-sm text-gray-600">
             Try: facebook/react, vercel/next.js, spring-projects/spring-boot
-        </p>
+          </p>
     </div>
   </div>
   )
