@@ -31,7 +31,7 @@ The client is reachable on `http://localhost:5173` by default.
 
 ## Starting the Back End (Server)
 ### GitHub token
-As the server requests data from the GitHub API, it uses a GitHub personal access token to make more requests without reaching the rate limit.
+As the server requests data from the GitHub API, it uses a GitHub personal access token.
 You will need a GitHub Personal Access Token to launch the server locally
 
 See the [Official GitHub documentation for creating a fine grained personal access token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-fine-grained-personal-access-token)
@@ -39,8 +39,8 @@ See the [Official GitHub documentation for creating a fine grained personal acce
 ### Starting the server
 - Navigate to `server/`
 - Set the GITHUB_TOKEN environment variable to your personal access token
-```GITHUB_TOKEN={token}``` for windows cmd
-```export GITHUB_TOKEN={token}``` for bash
-- run `mvn spring-boot:run
+  - ```GITHUB_TOKEN={token}``` for windows cmd
+  - ```export GITHUB_TOKEN={token}``` for bash
+- run `mvn spring-boot:run`
 
 The server is reachable on `http://localhost:8080` by default
