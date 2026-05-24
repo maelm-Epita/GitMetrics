@@ -25,8 +25,6 @@ public class RepoGithubResponse {
     @JsonProperty
     private int stargazers_count;
     @JsonProperty
-    private int watchers_count;
-    @JsonProperty
     private int subscribers_count;
     @JsonProperty
     private int open_issues_count;

@@ -4,6 +4,7 @@ import com.mael_minard.gitmetrics.dto.RepoMetricsResponse;
 import com.mael_minard.gitmetrics.dto.ReposSearchResponse;
 import com.mael_minard.gitmetrics.service.ReposService;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 
@@ -26,7 +27,7 @@ public class ReposController {
 
     @Cacheable("repoMetrics")
     @GetMapping("/{owner}/{repo}")
-    public Mono<RepoMetricsResponse> getRepoMetrics(@PathVariable String owner, @PathVariable String repo) {
+    public Mono<ResponseEntity<RepoMetricsResponse>> getRepoMetrics(@PathVariable String owner, @PathVariable String repo) {
         return reposService.getRepoMetrics(owner, repo);
     }
 }
