@@ -5,7 +5,7 @@
 
 ## MVP TODO
 - [X] Landing page
-- [ ] Repository search
+- [X] Repository search
 - [ ] Repository dashboard page
 - [ ] Live server deployment
 
